@@ -1,0 +1,31 @@
+
+	create databse DATABASEASSIGNMENT1;
+	Use CDAC_ACTS;
+	CREATE TABLE CDAC_ACTS
+	( CDAC_ID int primary key,
+	Institutes varchar(50),
+	Courses varchar(100),
+	Students int;
+	
+	Insert into cdac_acts values
+	(1,'VITA','PGDAC',120),
+	(2,'SUNBEAM_PUNE','PGDBDA',150),
+	(3,'ACTS_PUNE','PGDAC',240),
+	(4,'IACSD_PUNE','PGIOT',60),
+	(5,'KP_BANNNNGLORE','PGVLSI',120) ;
+	
+	SELECT *
+	FROM CDAC_ACTS;
+	
+	UPDATE CDAC_ACTS
+	SET Institute = 'KP_BANGLORE'
+	WHERE CDAC_ID = 5 ;
+	
+	DELETE FROM CDAC_ACTS
+	WHERE Institute =' KP_BANGLORE' ;
+	
+	TRUNCATE TABLE CDAC_ACTS;
+	DROP TABLE CDAC_ACTS ;
+	
+	
+	
