@@ -1,0 +1,92 @@
+create database DATABASEASSIGNMENT;
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| databaseassignment |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+  Use DATABASEASSIGNMENT;
+	CREATE TABLE CDAC_ACTS
+	( CDAC_ID int primary key,
+	Institutes varchar(50),
+	Courses varchar(100),
+	Students int);
+	
+mysql> Insert into cdac_acts values
+    -> (1,'VITA','PGDAC',120),
+    -> (2,'SUNBEAM_PUNE','PGDBDA',150),
+    -> (3,'ACTS_PUNE','PGDAC',240),
+    -> (4,'IACSD_PUNE','PGIOT',60),
+    -> (5,'KP_BANNNNGLORE','PGVLSI',120) ;
+Query OK, 5 rows affected (0.23 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+	
+mysql> SELECT *
+    -> FROM CDAC_ACTS;
++---------+-------------------+---------+-------------+
+| cdac_id | Name_of_Institute | courses | No_Students |
++---------+-------------------+---------+-------------+
+|       1 | VITA              | PGDAC   |         120 |
+|       2 | SUNBEAM_PUNE      | PGDBDA  |         150 |
+|       3 | ACTS_PUNE         | PGDAC   |         240 |
+|       4 | IACSD_PUNE        | PGIOT   |          60 |
+|       5 | KP_BANNNNGLORE    | PGVLSI  |         120 |
++---------+-------------------+---------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> UPDATE CDAC_ACTS
+    -> SET name_of_Institute = 'KP_BANGLORE'
+    -> WHERE CDAC_ID = 5 ;
+Query OK, 1 row affected (0.11 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+mysql> SELECT *
+    ->  FROM CDAC_ACts;
++---------+-------------------+---------+-------------+
+| cdac_id | Name_of_Institute | courses | No_Students |
++---------+-------------------+---------+-------------+
+|       1 | VITA              | PGDAC   |         120 |
+|       2 | SUNBEAM_PUNE      | PGDBDA  |         150 |
+|       3 | ACTS_PUNE         | PGDAC   |         240 |
+|       4 | IACSD_PUNE        | PGIOT   |          60 |
+|       5 | KP_BANGLORE       | PGVLSI  |         120 |
++---------+-------------------+---------+-------------+
+5 rows in set (0.00 sec)
+	
+mysql> DELETE FROM CDAC_ACTS
+    -> WHERE name_of_Institute =' KP_BANGLORE' ;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from cdac_acts;
+WHERE Institute =' KP_BANGLORE' ;
++---------+-------------------+---------+-------------+
+| cdac_id | Name_of_Institute | courses | No_Students |
++---------+-------------------+---------+-------------+
+|       1 | VITA              | PGDAC   |         120 |
+|       2 | SUNBEAM_PUNE      | PGDBDA  |         150 |
+|       3 | ACTS_PUNE         | PGDAC   |         240 |
+|       4 | IACSD_PUNE        | PGIOT   |          60 |
+|       5 | KP_BANGLORE       | PGVLSI  |         120 |
++---------+-------------------+---------+-------------+
+5 rows in set (0.00 sec)DELETE FROM CDAC_ACTS
+
+mysql> TRUNCATE TABLE CDAC_ACTS;
+Query OK, 0 rows affected (0.77 sec)
+
+mysql> select * from cdac_acts;
+Empty set (0.00 sec)
+
+mysql> drop table cdac_acts;
+Query OK, 0 rows affected (0.82 sec)
+
+mysql> select * from cdac_acts;
+ERROR 1146 (42S02): Table 'databaseassignment.cdac_acts' doesn't exist
+	
+	
+	
