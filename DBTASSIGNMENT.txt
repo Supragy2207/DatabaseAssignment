@@ -167,17 +167,131 @@ Ans- mysql> select *
 
 
 6. Find which salespeople currently have orders in the Orders table.
+Ans-mysql> select distinct(sname)
+    -> from salespeople inner join orders
+    -> on salespeople.snum=orders.snum;
++---------+
+| sname   |
++---------+
+| Peel    |
+| Serres  |
+| AxelRod |
+| Motika  |
+| Rifkin  |
++---------+
+5 rows in set (0.00 sec)
 7. List names of all customers matched with the salespeople serving them.
+Ans-mysql> select cname
+    -> from customers inner join salespeople
+    -> on customers.snum=salespeople.snum;
++----------+
+| cname    |
++----------+
+| Hoffman  |
+| Giovanni |
+| Liu      |
+| Grass    |
+| Clemens  |
+| Pereira  |
+| Cisneros |
++----------+
+7 rows in set (0.00 sec)
+
 8. Find the names and numbers of all salespeople who had more than one customer.
+
 9. Count the orders of each of the salespeople and output the results in descending order.
+
 10. List the Customer table if and only if one or more of the customers in the Customer table are
 located in San Jose.
+ans:
+mysql> select customers.cname from customers where city='san jose';
++----------+
+| cname    |
++----------+
+| Liu      |
+| Cisneros |
++----------+
+2 rows in set (0.00 sec)
+
 11. Match salespeople to customers according to what city they lived in.
+Ans-
+mysql> select salespeople.sname , customers.cname , salespeople.city from custom
+ers inner join salespeople on salespeople.city=customers.city;
++--------+----------+----------+
+| sname  | cname    | city     |
++--------+----------+----------+
+| Peel   | Hoffman  | London   |
+| Peel   | Clemens  | London   |
+| Serres | Liu      | San Jose |
+| Serres | Cisneros | San Jose |
+| Motika | Hoffman  | London   |
+| Motika | Clemens  | London   |
+| Fran   | Hoffman  | London   |
+| Fran   | Clemens  | London   |
++--------+----------+----------+
+8 rows in set (0.00 sec)
+
 12. Find the largest order taken by each salesperson.
+
 13. Find customers in San Jose who have a rating above 200.
+ans:
+mysql> select cname
+    -> from customers inner join salespeople
+    -> on customers.snum=salespeople.snum;
++----------+
+| cname    |
++----------+
+| Hoffman  |
+| Giovanni |
+| Liu      |
+| Grass    |
+| Clemens  |
+| Pereira  |
+| Cisneros |
++----------+
+7 rows in set (0.00 sec)
+
 14. List the names and commissions of all salespeople in London.
+Ans=
+mysql> select sname,comm
+    -> from salespeople
+    -> where city='london';
++--------+------+
+| sname  | comm |
++--------+------+
+| Peel   | 0.12 |
+| Motika | 0.11 |
+| Fran   | 0.26 |
++--------+------+
+3 rows in set (0.00 sec)
+
 15. List all the orders of salesperson Motika from the Orders table.
+Ans:
+mysql> select *  from orders inner join salespeople on orders.snum=salespeople.snum where sname='motika';
++------+---------+------------+------+------+------+--------+--------+------+
+| Onum | Amt     | Odate      | Cnum | Snum | Snum | Sname  | city   | Comm |
++------+---------+------------+------+------+------+--------+--------+------+
+| 3002 | 1900.10 | 1996-03-10 | 2007 | 1004 | 1004 | Motika | London | 0.11 |
++------+---------+------------+------+------+------+--------+--------+------+
+1 row in set (0.00 sec)
+
 16. Find all customers with orders on October 3.
+Ans:
+mysql> select cname
+    -> from customers inner join salespeople
+    -> on customers.snum=salespeople.snum;
++----------+
+| cname    |
++----------+
+| Hoffman  |
+| Giovanni |
+| Liu      |
+| Grass    |
+| Clemens  |
+| Pereira  |
+| Cisneros |
++----------+
+7 rows in set (0.00 sec)
 17. Give the sums of the amounts from the Orders table, grouped by date, eliminating all those
 dates where the SUM was not at least 2000.00 above the MAX amount.
 18. Select all orders that had amounts that were greater than at least one of the orders from
@@ -186,7 +300,7 @@ October 6.
 with a rating of 300.
 20. Find all pairs of customers having the same rating.
 21. Find all customers whose CNUM is 1000 above the SNUM of Serres.
-22. Give the salespeople’s commissions as percentages instead of decimal numbers.
+22. Give the salespeopleâ€™s commissions as percentages instead of decimal numbers.
 23. Find the largest order taken by each salesperson on each date, eliminating those MAX orders
 which are less than $3000.00 in value.
 24. List the largest orders for October 3, for each salesperson.
@@ -194,15 +308,15 @@ which are less than $3000.00 in value.
 26. Select all customers with a rating above 200.00.
 27. Count the number of salespeople currently listing orders in the Orders table.
 28. Write a query that produces all customers serviced by salespeople with a commission above
-12%. Output the customer’s name and the salesperson’s rate of commission.
+12%. Output the customerâ€™s name and the salespersonâ€™s rate of commission.
 29. Find salespeople who have multiple customers.
 30. Find salespeople with customers located in their city.
-31. Find all salespeople whose name starts with ‘P’ and the fourth character is ‘l’.
+31. Find all salespeople whose name starts with â€˜Pâ€™ and the fourth character is â€˜lâ€™.
 32. Write a query that uses a subquery to obtain all orders for the customer named Cisneros.
 Assume you do not know his customer number.
 33. Find the largest orders for Serres and Rifkin.
 34. Extract the Salespeople table in the following order : SNUM, SNAME, COMMISSION, CITY.
-35. Select all customers whose names fall in between ‘A’ and ‘G’ alphabetical range.
+35. Select all customers whose names fall in between â€˜Aâ€™ and â€˜Gâ€™ alphabetical range.
 36. Select all the possible combinations of customers that you can assign.
 37. Select all orders that are greater than the average for October 4.
 38. Write a select command using a corelated subquery that selects the names and numbers of all
@@ -213,9 +327,9 @@ San Jose.
 41. Find all orders with amounts smaller than any amount for a customer in San Jose.
 42. Find all orders with above average amounts for their customers.
 43. Write a query that selects the highest rating in each city.
-44. Write a query that calculates the amount of the salesperson’s commission on each order by a
+44. Write a query that calculates the amount of the salespersonâ€™s commission on each order by a
 customer with a rating above 100.00.
-45. Count the customers with ratings above San Jose’s average.
+45. Count the customers with ratings above San Joseâ€™s average.
 46. Write a query that produces all pairs of salespeople with themselves as well as duplicate rows
 with the order reversed.
 47. Find all salespeople that are located in either Barcelona or London.
@@ -229,7 +343,7 @@ that order.
 cities who they do not service, one using a join and one a corelated subquery. Which solution
 is more elegant?
 53. Write a query that selects all customers whose ratings are equal to or greater than ANY (in the
-SQL sense) of Serres’?
+SQL sense) of Serresâ€™?
 54. Write 2 queries that will produce all orders taken on October 3 or October 4.
 55. Write a query that produces all pairs of orders by a given customer. Name that customer and
 eliminate duplicates.
@@ -242,9 +356,9 @@ amount of the largest order in the table.
 60. Write a query that selects all orders save those with zeroes or NULLs in the amount field.
 61. Produce all combinations of salespeople and customer names such that the former precedes
 the latter alphabetically, and the latter has a rating of less than 200.
-62. List all Salespeople’s names and the Commission they have earned.
+62. List all Salespeopleâ€™s names and the Commission they have earned.
 63. Write a query that produces the names and cities of all customers with the same rating as
-Hoffman. Write the query using Hoffman’s CNUM rather than his rating, so that it would still be
+Hoffman. Write the query using Hoffmanâ€™s CNUM rather than his rating, so that it would still be
 usable if his rating changed.
 64. Find all salespeople for whom there are customers that follow them in alphabetical order.
 65. Write a query that produces the names and ratings of all customers of all who have above
@@ -270,13 +384,13 @@ than one order on a given day, he or she should be counted only once.)
 78. Write a query that extracts from the Customers table every customer assigned to a
 salesperson who currently has at least one other customer (besides the customer being
 selected) with orders in the Orders table.
-79. Write a query that selects all customers whose names begin with ‘C’.
+79. Write a query that selects all customers whose names begin with â€˜Câ€™.
 80. Write a query on the Customers table that will find the highest rating in each city. Put the output
 in this form : for the city (city) the highest rating is : (rating).
 81. Write a query that will produce the SNUM values of all salespeople with orders currently in the
 Orders table (without any repeats).
 82. Write a query that lists customers in descending order of rating. Output the rating field first,
-followed by the customer’s names and numbers.
+followed by the customerâ€™s names and numbers.
 83. Find the average commission for salespeople in London.
 84. Find all orders credited to the same salesperson who services Hoffman (CNUM 2001).
 85. Find all salespeople whose commission is in between 0.10 and 0.12 (both inclusive).
@@ -286,7 +400,7 @@ commission above 0.10.
 SELECT * FROM ORDERS
 where (amt < 1000 OR NOT (odate = 10/03/1996 AND cnum >
 2003));
-88. Write a query that selects each customer’s smallest order.
+88. Write a query that selects each customerâ€™s smallest order.
 89. Write a query that selects the first customer in alphabetical order whose name begins with G.
 90. Write a query that counts the number of different nonNULL city values in the Customers table.
 91. Find the average amount from the Orders table.
@@ -348,13 +462,13 @@ salespersons Peel or Serres?
 112.Which customers have the same rating?
 113.Find all orders greater than the average for October 4th.
 114.Which customers have above average orders?
-115.List all customers with ratings above San Jose’s average.
+115.List all customers with ratings above San Joseâ€™s average.
 116.Select the total amount in orders for each salesperson for whom the total is greater than the
 amount of the largest order in the table.
 117.Give names and numbers of all salespersons who have more than one customer.
 118.Select all salespersons by name and number who have customers in their city whom they
-don’t service.
-119.Which customers’ rating should be lowered?
+donâ€™t service.
+119.Which customersâ€™ rating should be lowered?
 120.Is there a case for assigning a salesperson to Berlin?
 121.Is there any evidence linking the performance of a salesperson to the commission that he or
 she is being paid?
